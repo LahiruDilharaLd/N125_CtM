@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<title>PLSN125 // CHECK-IN</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700;800&display=swap">
+<link rel="stylesheet" href="src/css/style.css">
+</head>
+<body>
+<div class="shell">
+  <header class="panel">
+    <span class="brand">PLSN125//CHECK-IN</span>
+    <span class="badge" id="badge">LOCKED</span>
+    <span class="stat">DB <b id="count">--</b></span>
+    <span class="spacer"></span>
+    <button class="btn" id="theme" title="Cycle theme (T)">THEME</button>
+    <button class="btn" id="rescan" hidden>&#8635; Rescan</button>
+  </header>
+
+  <main>
+    <section class="card panel view login" id="loginView">
+      <h2>SECURE LOGIN <i>ADMIN ONLY</i></h2>
+      <h1>PLSN125</h1>
+      <form id="loginForm" autocomplete="on">
+        <label for="user">USERNAME</label>
+        <input id="user" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" required>
+        <label for="pass">PASSWORD</label>
+        <input id="pass" name="password" type="password" autocomplete="current-password" required>
+        <div class="msg" id="lmsg"></div>
+        <button class="btn" type="submit">&gt; Login</button>
+      </form>
+    </section>
+
+    <section class="card panel view" id="scanView" hidden>
+      <h2>QR SCANNER <i>ALIGN CODE IN FRAME</i></h2>
+      <div class="cam">
+        <video id="video" playsinline muted></video>
+        <div class="frame"><i></i><i></i><i></i><i></i><div class="sweep"></div></div>
+      </div>
+      <div class="msg" id="msg">&gt; INITIALISING CAMERA...</div>
+      <div class="manual">
+        <input id="manual" placeholder="PLSN125-..." autocomplete="off" autocapitalize="characters" spellcheck="false" aria-label="Registration ID">
+        <button class="btn" id="lookup">Lookup</button>
+      </div>
+    </section>
+
+    <section class="card panel view" id="okView" hidden>
+      <h2>RIDER DETAILS <i>PLSN125</i></h2>
+      <dl>
+        <dt>RIDER</dt><dd class="name" id="rName"></dd>
+        <dt>BIKE NO.</dt><dd class="bike" id="rBike"></dd>
+      </dl>
+      <p class="welcome" id="welcome"></p>
+      <button class="btn wa" id="wa">&#9654; Send WhatsApp</button>
+      <div class="msg err" id="waMsg"></div>
+      <div class="rid" id="rId"></div>
+    </section>
+
+    <section class="card panel view bad" id="badView" hidden>
+      <h2>ACCESS DENIED <i>UNKNOWN ID</i></h2>
+      <dl><dt>RESULT</dt><dd class="name">NOT REGISTERED</dd></dl>
+      <p class="welcome" style="color:var(--fg)">This QR code does not match any registration ID. Tap <b>Rescan</b> to try again.</p>
+      <div class="rid" id="badRaw"></div>
+    </section>
+  </main>
+</div>
+<div id="banner" hidden></div>
+<canvas id="work" hidden></canvas>
+
+<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
+<script src="src/js/app.js"></script>
+</body>
+</html>
